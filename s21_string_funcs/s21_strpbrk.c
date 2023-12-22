@@ -1,18 +1,3 @@
-// #include "s21_string.h"
-
-// char *s21_strpbrk(const char *str1, const char *str2){
-//     char *res = S21_NULL;
-//     while (*str2 != '\0') {
-//         res = s21_strchr(str1, *str2);
-//         if (res != S21_NULL) {
-//             break;
-//         }
-//         str2++;
-//     }
-    
-//     return res;   
-// }
-
 #include "s21_string.h"
 
 char *s21_strpbrk(const char *str1, const char *str2) {

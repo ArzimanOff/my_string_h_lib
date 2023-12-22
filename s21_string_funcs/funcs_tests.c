@@ -129,8 +129,8 @@ int main(){
 
     unsigned char src[15]= "1234567890";
     unsigned char src2[15]= "1234567890";
-    printf("%s\n", memset(src, '0', 4));
-    printf("%s\n", s21_memset(src2, '0', 4));
+    printf("%p\n", memset(src, '0', 4));
+    printf("%p\n", s21_memset(src2, '0', 4));
 
     printf("\nТЕСТИРОВАНИЕ memset КОНЕЦ =========================\n\n");
 
@@ -139,9 +139,9 @@ int main(){
     printf("ТЕСТИРОВАНИЕ memcpy НАЧАЛО =========================\n\n");
 
     unsigned char memcpy_src1[10]= "аd23456";
-    unsigned char dst1[10]= "9";
+     char dst1[10]= "9";
     unsigned char memcpy_src2[10]= "аd23456";
-    unsigned char dst2[10]= "9";
+     char dst2[10]= "9";
 
     memcpy(dst1, memcpy_src1, 5);
     s21_memcpy(dst2, memcpy_src2, 5);
@@ -155,13 +155,13 @@ int main(){
     // тестирование strncpy
     printf("ТЕСТИРОВАНИЕ strncpy НАЧАЛО =========================\n\n");
 
-    unsigned char strncpy_src1[10]= "аd23456";
-    unsigned char strncpy_dst1[10]= "9";
-    unsigned char strncpy_src2[10]= "аd23456";
-    unsigned char strncpy_dst2[10]= "9";
+    const char strncpy_src1[10]= "аd23456";
+     char strncpy_dst1[10]= "9";
+    const char strncpy_src2[10]= "аd23456";
+     char strncpy_dst2[10]= "9";
 
-    strncpy(dst1, strncpy_src1, 10);
-    s21_strncpy(dst2, strncpy_src2, 10);
+    strncpy(strncpy_dst1, strncpy_src1, 10);
+    s21_strncpy(strncpy_dst2, strncpy_src2, 10);
 
     printf("%s\n", dst1);
     printf("%s\n", dst2);
@@ -205,8 +205,8 @@ int main(){
 
     const char *strcspn_str1 = "qwerty";
     const char *strcspn_str2 = "r";
-    printf("%d\n", strcspn(strcspn_str1, strcspn_str2));
-    printf("%d\n", s21_strcspn(strcspn_str1, strcspn_str2));
+    printf("%ld\n", strcspn(strcspn_str1, strcspn_str2));
+    printf("%ld\n", s21_strcspn(strcspn_str1, strcspn_str2));
     
     printf("\nТЕСТИРОВАНИЕ strcspn КОНЕЦ =========================\n\n");
 
@@ -225,30 +225,30 @@ int main(){
     // тестирование strpbrk
     printf("ТЕСТИРОВАНИЕ strpbrk НАЧАЛО =========================\n\n");
 
-    char strpbrk_str1[11] = "0123456789";
-    char strpbrk_str2[10] = "369";
+     char strpbrk_str1[11] = "0123456789";
+     char strpbrk_str2[10] = "369";
 
-    char *real_ans = strpbrk(strcspn_str1, strcspn_str2);
-    char *my_ans =  s21_strpbrk(strcspn_str1, strcspn_str2);
+    char *real_ans;
+    real_ans = strpbrk(strpbrk_str1, strpbrk_str2);
+    char *my_ans;
+    my_ans =  s21_strpbrk(strpbrk_str1, strpbrk_str2);
 
     //Вывод результата поиска на консоль
     if (real_ans == S21_NULL)
       printf ("Символы не найдены\n");
     else
-      printf ("Искомый символ на позиции %d\n", real_ans - strpbrk_str1 + 1);
+      printf ("Искомый символ на позиции %ld\n", real_ans - strpbrk_str1 + 1);
 
 
     if (my_ans == S21_NULL)
       printf ("Символы не найдены\n");
     else
-      printf ("Искомый символ на позиции %d\n", my_ans - strpbrk_str1 + 1);
+      printf ("Искомый символ на позиции %ld\n", my_ans - strpbrk_str1 + 1);
 
     printf("%p\n", real_ans);
     printf("%p\n", my_ans);
 
-    printf("%c\n", *real_ans);
-    printf("%c\n", *my_ans);
-    
+
     printf("\nТЕСТИРОВАНИЕ strpbrk КОНЕЦ =========================\n\n");
 
 
@@ -375,6 +375,74 @@ int main(){
 
 
     printf("\nТЕСТИРОВАНИЕ strtok КОНЕЦ =========================\n\n");
+
+
+
+    // тестирование to_upper
+    printf("ТЕСТИРОВАНИЕ to_upper НАЧАЛО =========================\n\n");
+
+    const char to_upper_str1[24] = "HgfjIw     ghO";
+    char *to_upper_real_ans = "HGFJIW     GHO";
+    char *to_upper_my_ans = s21_to_upper(to_upper_str1);
+
+    printf("\n%s\n", to_upper_real_ans);
+    printf("%s\n", to_upper_my_ans);
+
+
+    printf("\nТЕСТИРОВАНИЕ to_upper КОНЕЦ =========================\n\n");
+
+    // тестирование to_lower
+    printf("ТЕСТИРОВАНИЕ to_lower НАЧАЛО =========================\n\n");
+
+    const char to_lower_str1[24] = "HgfjIw     gh0";
+    char *to_lower_real_ans = "hgfjiw     gh0";
+    char *to_lower_my_ans = s21_to_lower(to_lower_str1);
+
+    printf("\n%s\n", to_lower_real_ans);
+    printf("%s\n", to_lower_my_ans);
+
+
+    printf("\nТЕСТИРОВАНИЕ to_lower КОНЕЦ =========================\n\n");
+
+
+    // тестирование insert
+    printf("ТЕСТИРОВАНИЕ insert НАЧАЛО =========================\n\n");
+
+    const char insert_str1[24] = "hahahaha";
+    const char insert_str2[24] = "-hihi-";
+    
+
+    char *insert_real_ans = "haha-hihi-haha";
+    char *insert_my_ans = s21_insert(insert_str1, insert_str2, 4);
+
+
+    printf("\n%s\n", insert_real_ans);
+    printf("%s\n", insert_my_ans);
+
+
+    printf("\nТЕСТИРОВАНИЕ to_lower КОНЕЦ =========================\n\n");
+
+
+    // тестирование trim
+    printf("ТЕСТИРОВАНИЕ insert НАЧАЛО =========================\n\n");
+
+    const char trim_str1[24] = "  -hahahaha  -";
+    const char trim_str2[24] = " -";
+    
+
+    char *trim_real_ans = "hahahaha";
+    char *trim_my_ans = s21_trim(trim_str1, trim_str2);
+
+
+    printf("\n%s\n", trim_real_ans);
+    printf("%s\n", trim_my_ans);
+
+
+    printf("\nТЕСТИРОВАНИЕ insert КОНЕЦ =========================\n\n");
+
+
+
+   
 
 
     // printf("===MEMCHR_TESTING===\n");
