@@ -1,6 +1,5 @@
 #include "s21_string.h"
 
-
 char *s21_strstr(const char *haystack, const char *needle) {
   char *result = S21_NULL;
   int flag = 1;

@@ -15,4 +15,3 @@ char *s21_strtok(char *str, const char *delim) {
   if (*p_substr != '\0') *(p_substr++) = '\0';
   return str;
 }
-
