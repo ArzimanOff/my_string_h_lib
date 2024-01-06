@@ -23,15 +23,11 @@ s21_string.a: s21_string.o
 	ranlib s21_string.a
 	rm *.o
 
-s21_string.o: $(FILES) s21_string_funcs/s21_string.h
+s21_string.o: $(FILES) s21_string_funcs/s21_string.h s21_string_funcs/s21_sprintf.h
 	$(CC) $(CFLAGS) -c $(FILES)
 
-test_string: s21_string.o
+test_string: s21_string.o test.c
 	$(CC) $(CFLAGS) $(TESTFILE) $(FILES) $(TESTFLAGS) -o test_string
-
-string: s21_string.o
-	$(CC) $(CFLAGS) $(TESTFILE) $(FILES) $(TESTFLAGS) -o test
-
 
 style:
 	clang-format -i -style=Google s21_string_funcs/*.c s21_string_funcs/*.h
@@ -39,12 +35,11 @@ style:
 
 leaks: s21_string.a
 	clear
-	$(CC) $(CFLAGS) $(TESTFILE) s21_string.a -o v
+	$(CC) $(CFLAGS) $(TESTFLAGS) $(TESTFILE) s21_string.a -o v
 	valgrind --tool=memcheck --leak-check=yes ./v
 	leaks -atExit -- ./v
-	$(CC) $(LFLAGS) $(TESTFILE) s21_string.a -o 1
+	$(CC) $(LFLAGS) $(TESTFLAGS) $(TESTFILE) s21_string.a -o 1
 	./1
-
 
 gcov_report:
 	$(CC) $(CFLAGS) $(TESTFILE) $(FILES) $(TESTFLAGS) $(COVFLAGS) -o test_string
@@ -53,7 +48,6 @@ gcov_report:
 	genhtml -o report test.info
 	rm *.gcda *.gcno *.info
 	open report/index.html
-
 
 clean:
 	rm -rf test_string *.o *.a *.gch *gcda report *gcno *info test_string.dSYM

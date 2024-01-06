@@ -1,6 +1,7 @@
 #include <check.h>
 #include <string.h>
 
+#include "s21_string_funcs/s21_sprintf.h"
 #include "s21_string_funcs/s21_string.h"
 
 //--------------------------s21_strncmp---------------------------------
@@ -523,8 +524,12 @@ START_TEST(test_s21_insert_basic) {
   char dest[20] = "Hello, World!";
   const char *src = " beautiful";
   s21_size_t pos = 7;
+  char *result_s21_insert = s21_insert(dest, src, pos);
 
-  ck_assert_pstr_eq(s21_insert(dest, src, pos), "Hello,  beautifulWorld!");
+  ck_assert_pstr_eq(result_s21_insert, "Hello,  beautifulWorld!");
+  if (result_s21_insert != NULL) {
+    free(result_s21_insert);
+  }
 }
 END_TEST
 
@@ -532,8 +537,12 @@ START_TEST(test_s21_insert_empty_src) {
   char dest[20] = "Hello, World!";
   const char *src = "";
   s21_size_t pos = 7;
+  char *result_s21_insert = s21_insert(dest, src, pos);
 
-  ck_assert_pstr_eq(s21_insert(dest, src, pos), "Hello, World!");
+  ck_assert_pstr_eq(result_s21_insert, "Hello, World!");
+  if (result_s21_insert != NULL) {
+    free(result_s21_insert);
+  }
 }
 END_TEST
 
@@ -541,8 +550,12 @@ START_TEST(test_s21_insert_at_beginning) {
   char dest[20] = "World!";
   const char *src = "Hello, ";
   s21_size_t pos = 0;
+  char *result_s21_insert = s21_insert(dest, src, pos);
 
-  ck_assert_pstr_eq(s21_insert(dest, src, pos), "Hello, World!");
+  ck_assert_pstr_eq(result_s21_insert, "Hello, World!");
+  if (result_s21_insert != NULL) {
+    free(result_s21_insert);
+  }
 }
 END_TEST
 
@@ -550,8 +563,12 @@ START_TEST(test_s21_insert_at_end) {
   char dest[20] = "Hello, ";
   const char *src = "World!";
   s21_size_t pos = 7;
+  char *result_s21_insert = s21_insert(dest, src, pos);
 
-  ck_assert_pstr_eq(s21_insert(dest, src, pos), "Hello, World!");
+  ck_assert_pstr_eq(result_s21_insert, "Hello, World!");
+  if (result_s21_insert != NULL) {
+    free(result_s21_insert);
+  }
 }
 END_TEST
 
@@ -559,7 +576,12 @@ START_TEST(test_s21_insert_invalid_position) {
   char dest[50] = "Hello, ";
   const char *src = "World!!!!";
   s21_size_t pos = 49;
-  ck_assert_pstr_eq(S21_NULL, s21_insert(dest, src, pos));
+  char *result_s21_insert = s21_insert(dest, src, pos);
+
+  ck_assert_pstr_eq(S21_NULL, result_s21_insert);
+  if (result_s21_insert != NULL) {
+    free(result_s21_insert);
+  }
 }
 END_TEST
 
@@ -839,6 +861,9 @@ START_TEST(test_s21_to_lower_basic) {
   char *result_s21_to_lower = s21_to_lower(str);
 
   ck_assert_str_eq(result_s21_to_lower, "hello, world!");
+  if (result_s21_to_lower != NULL) {
+    free(result_s21_to_lower);
+  }
 }
 END_TEST
 
@@ -847,6 +872,9 @@ START_TEST(test_s21_to_lower_empty_str) {
   char *result_s21_to_lower = s21_to_lower(str);
 
   ck_assert_str_eq(result_s21_to_lower, "");
+  if (result_s21_to_lower != NULL) {
+    free(result_s21_to_lower);
+  }
 }
 END_TEST
 
@@ -855,6 +883,9 @@ START_TEST(test_s21_to_lower_null_str) {
   char *result_s21_to_lower = s21_to_lower(str);
 
   ck_assert_ptr_eq(result_s21_to_lower, S21_NULL);
+  if (result_s21_to_lower != NULL) {
+    free(result_s21_to_lower);
+  }
 }
 END_TEST
 
@@ -880,6 +911,9 @@ START_TEST(test_s21_to_upper_basic) {
   char *result_s21_to_upper = s21_to_upper(str);
 
   ck_assert_str_eq(result_s21_to_upper, "HELLO, WORLD!");
+  if (result_s21_to_upper != NULL) {
+    free(result_s21_to_upper);
+  }
 }
 END_TEST
 
@@ -888,6 +922,9 @@ START_TEST(test_s21_to_upper_empty_str) {
   char *result_s21_to_upper = s21_to_upper(str);
 
   ck_assert_str_eq(result_s21_to_upper, "");
+  if (result_s21_to_upper != NULL) {
+    free(result_s21_to_upper);
+  }
 }
 END_TEST
 
@@ -896,6 +933,9 @@ START_TEST(test_s21_to_upper_null_str) {
   char *result_s21_to_upper = s21_to_upper(str);
 
   ck_assert_ptr_eq(result_s21_to_upper, S21_NULL);
+  if (result_s21_to_upper != NULL) {
+    free(result_s21_to_upper);
+  }
 }
 END_TEST
 
@@ -904,6 +944,9 @@ START_TEST(test_s21_to_upper_mixed_case) {
   char *result_s21_to_upper = s21_to_upper(str);
 
   ck_assert_str_eq(result_s21_to_upper, "HELLO, WORLD!");
+  if (result_s21_to_upper != NULL) {
+    free(result_s21_to_upper);
+  }
 }
 END_TEST
 
@@ -931,6 +974,9 @@ START_TEST(test_s21_trim_basic) {
   char *result_s21_trim = s21_trim(src, trim_chars);
 
   ck_assert_str_eq(result_s21_trim, "Hello, World!");
+  if (result_s21_trim != NULL) {
+    free(result_s21_trim);
+  }
 }
 END_TEST
 
@@ -940,6 +986,9 @@ START_TEST(test_s21_trim_empty_str) {
   char *result_s21_trim = s21_trim(src, trim_chars);
 
   ck_assert_str_eq(result_s21_trim, "");
+  if (result_s21_trim != NULL) {
+    free(result_s21_trim);
+  }
 }
 END_TEST
 
@@ -949,6 +998,9 @@ START_TEST(test_s21_trim_null_str) {
   char *result_s21_trim = s21_trim(src, trim_chars);
 
   ck_assert_ptr_eq(result_s21_trim, S21_NULL);
+  if (result_s21_trim != NULL) {
+    free(result_s21_trim);
+  }
 }
 END_TEST
 
@@ -958,6 +1010,9 @@ START_TEST(test_s21_trim_no_whitespace) {
   char *result_s21_trim = s21_trim(src, trim_chars);
 
   ck_assert_str_eq(result_s21_trim, "Hello,World!");
+  if (result_s21_trim != NULL) {
+    free(result_s21_trim);
+  }
 }
 END_TEST
 
@@ -967,6 +1022,9 @@ START_TEST(test_s21_trim_leading_whitespace) {
   char *result_s21_trim = s21_trim(src, trim_chars);
 
   ck_assert_str_eq(result_s21_trim, "Hello, World!");
+  if (result_s21_trim != NULL) {
+    free(result_s21_trim);
+  }
 }
 END_TEST
 
@@ -976,6 +1034,9 @@ START_TEST(test_s21_trim_trailing_whitespace) {
   char *result_s21_trim = s21_trim(src, trim_chars);
 
   ck_assert_str_eq(result_s21_trim, "Hello, World!");
+  if (result_s21_trim != NULL) {
+    free(result_s21_trim);
+  }
 }
 END_TEST
 
@@ -985,6 +1046,9 @@ START_TEST(test_s21_trim_whitespace_in_middle) {
   char *result_s21_trim = s21_trim(src, trim_chars);
 
   ck_assert_str_eq(result_s21_trim, "Hello,   World!");
+  if (result_s21_trim != NULL) {
+    free(result_s21_trim);
+  }
 }
 END_TEST
 
@@ -994,6 +1058,9 @@ START_TEST(test_s21_trim_mixed_whitespace) {
   char *result_s21_trim = s21_trim(src, trim_chars);
 
   ck_assert_str_eq(result_s21_trim, "Hello, \t World!");
+  if (result_s21_trim != NULL) {
+    free(result_s21_trim);
+  }
 }
 END_TEST
 
@@ -1018,18 +1085,610 @@ Suite *s21_trim_suite(void) {
   return suite;
 }
 
+//--------------------------s21_sprintf---------------------------------
+START_TEST(test_s21_sprintf_basic) {
+  char buffer[100];
+  s21_sprintf(buffer, "Hello, %s!", "world");
+
+  char expected[100];
+  sprintf(expected, "Hello, %s!", "world");
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_integer) {
+  char buffer[100];
+  s21_sprintf(buffer, "Value: %d", 42);
+
+  char expected[100];
+  sprintf(expected, "Value: %d", 42);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_float) {
+  char buffer[100];
+  s21_sprintf(buffer, "Pi: %.2f", 3.14159);
+
+  char expected[100];
+  sprintf(expected, "Pi: %.2f", 3.14159);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_char) {
+  char buffer[100];
+  s21_sprintf(buffer, "Character: %c", 'A');
+
+  char expected[100];
+  sprintf(expected, "Character: %c", 'A');
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_char) {
+  char buffer[100];
+  wchar_t wc = L'Z';
+  s21_sprintf(buffer, "Wide Character: %lc", wc);
+
+  char expected[100];
+  sprintf(expected, "Wide Character: %lc", wc);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_float_default_precision) {
+  char buffer[100];
+  double value = 1234.56789;
+  s21_sprintf(buffer, "Float with default precision: %f", value);
+
+  char expected[100];
+  sprintf(expected, "Float with default precision: %f", value);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_float_zero_precision) {
+  char buffer[100];
+  double value = 1234.56789;
+  s21_sprintf(buffer, "Float with zero precision: %.0f", value);
+
+  char expected[100];
+  sprintf(expected, "Float with zero precision: %.0f", value);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_float_no_integer_part) {
+  char buffer[100];
+  double value = 0.123456;
+  s21_sprintf(buffer, "Float with no integer part: %f", value);
+
+  char expected[100];
+  sprintf(expected, "Float with no integer part: %f", value);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_negative_float) {
+  char buffer[100];
+  double value = -123.456;
+  s21_sprintf(buffer, "Negative float: %f", value);
+
+  char expected[100];
+  sprintf(expected, "Negative float: %f", value);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_string_basic) {
+  wchar_t wstr[] = L"Hello, World!";
+  char buffer[100];
+  s21_sprintf(buffer, "Wide String: %ls", wstr);
+
+  char expected[100];
+  sprintf(expected, "Wide String: %ls", wstr);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_string_width) {
+  wchar_t wstr[] = L"Hello, World!";
+  char buffer[100];
+  int width = 20;
+  s21_sprintf(buffer, "Wide String: %*ls", width, wstr);
+
+  char expected[100];
+  sprintf(expected, "Wide String: %*ls", width, wstr);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_string_precision) {
+  wchar_t wstr[] = L"Hello, World!";
+  char buffer[100];
+  s21_sprintf(buffer, "Wide String: %.5ls", wstr);
+
+  char expected[100];
+  sprintf(expected, "Wide String: %.5ls", wstr);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_string_minus_flag) {
+  wchar_t wstr[] = L"Hello, World!";
+  char buffer[100];
+  int width = 20;
+  s21_sprintf(buffer, "Wide String: %-*ls", width, wstr);
+
+  char expected[100];
+  sprintf(expected, "Wide String: %-*ls", width, wstr);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_string_no_padding) {
+  wchar_t wstr[] = L"Hello, World!";
+  char buffer[100];
+  s21_sprintf(buffer, "Wide String: %ls", wstr);
+
+  char expected[100];
+  sprintf(expected, "Wide String: %ls", wstr);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_string_left_padding) {
+  char str[] = "Hello, World!";
+  char buffer[100];
+  int width = 20;
+
+  s21_sprintf(buffer, "String: %-*s", width, str);
+
+  char expected[100];
+  sprintf(expected, "String: %-*s", width, str);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_string_right_padding) {
+  wchar_t wstr[] = L"Hello, World!";
+  char buffer[100];
+  int width = 20;
+  s21_sprintf(buffer, "Wide String: %*ls", width, wstr);
+
+  char expected[100];
+  sprintf(expected, "Wide String: %*ls", width, wstr);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wide_string_both_padding) {
+  wchar_t wstr[] = L"Hello, World!";
+  char buffer[100];
+  int width = 20;
+  s21_sprintf(buffer, "Wide String: %-*ls", width, wstr);
+
+  char expected[100];
+  sprintf(expected, "Wide String: %-*ls", width, wstr);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_string_no_left_padding) {
+  char str[] = "Hello, World!";
+  char buffer[100];
+  int width = 15;
+  s21_sprintf(buffer, "String: %*s", width, str);
+
+  char expected[100];
+  sprintf(expected, "String: %*s", width, str);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_char_no_left_padding) {
+  char buffer[100];
+  char c = 'X';
+  int width = 5;
+  s21_sprintf(buffer, "Char: %*c", width, c);
+
+  char expected[100];
+  sprintf(expected, "Char: %*c", width, c);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_char_left_padding) {
+  char buffer[100];
+  char c = 'X';
+  int width = 5;
+  s21_sprintf(buffer, "Char: %-*c", width, c);
+
+  char expected[100];
+  sprintf(expected, "Char: %-*c", width, c);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_char_zero_width) {
+  char buffer[100];
+  char c = 'X';
+  s21_sprintf(buffer, "Char: %c", c);
+
+  char expected[100];
+  sprintf(expected, "Char: %c", c);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wchar_no_left_padding) {
+  wchar_t w_c = L'X';
+  char buffer[100];
+  int width = 5;
+  s21_sprintf(buffer, "Wide Char: %*lc", width, w_c);
+
+  char expected[100];
+  sprintf(expected, "Wide Char: %*lc", width, w_c);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wchar_left_padding) {
+  wchar_t w_c = L'X';
+  char buffer[100];
+  int width = 5;
+  s21_sprintf(buffer, "Wide Char: %-*lc", width, w_c);
+
+  char expected[100];
+  sprintf(expected, "Wide Char: %-*lc", width, w_c);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_wchar_zero_width) {
+  wchar_t w_c = L'X';
+  char buffer[100];
+  s21_sprintf(buffer, "Wide Char: %lc", w_c);
+
+  char expected[100];
+  sprintf(expected, "Wide Char: %lc", w_c);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_parse_uint_uint32) {
+  uint32_t value = 12345;
+  char buffer[100];
+  s21_sprintf(buffer, "Value: %u", value);
+
+  char expected[100];
+  sprintf(expected, "Value: %u", value);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_parse_uint_uint16) {
+  uint16_t value = 5678;
+  char buffer[100];
+  s21_sprintf(buffer, "Value: %hu", value);
+
+  char expected[100];
+  sprintf(expected, "Value: %hu", value);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_parse_uint_ulong) {
+  unsigned long value = 9876543210UL;
+  char buffer[100];
+  s21_sprintf(buffer, "%lu", value);
+
+  char expected[100];
+  sprintf(expected, "%lu", value);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprint_unum_to_string_with_zero) {
+  unsigned long val = 0UL;
+  char buffer[100];
+  s21_sprintf(buffer, "%lu", val);
+
+  char expected[100];
+  sprintf(expected, "%lu", val);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_with_format_flags) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "Value: %+8d", 123);
+
+  sprintf(expected, "Value: %+8d", 123);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_with_space_flag) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "Value: % d", 123);
+
+  sprintf(expected, "Value: % d", 123);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_with_width_and_padding) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "Value: %-8d", 123);
+
+  sprintf(expected, "Value: %-8d", 123);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_format_precision) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "%.3d", 42);
+
+  sprintf(expected, "%.3d", 42);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_format_precision_zero_u_specifier) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "%.0u", 123);
+
+  sprintf(expected, "%.0u", 123);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_precision_zero_check_int_spec) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "%.0d", 0);
+
+  sprintf(expected, "%.0d", 0);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_buffer_starts_with_minus) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "%d", -123);
+
+  sprintf(expected, "%d", -123);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_j_zero_in_loop) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "%d", -123);
+
+  sprintf(expected, "%d", -123);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_h_specifier) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "%hd", (short)32767);
+
+  sprintf(expected, "%hd", (short)32767);
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_percent_specifier) {
+  char buffer[100];
+  char expected[100];
+
+  s21_sprintf(buffer, "This is a %% sign: %%");
+
+  sprintf(expected, "This is a %% sign: %%");
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+START_TEST(test_s21_sprintf_star_precision_specifier) {
+  char buffer[100];
+  char expected[100];
+
+  int precision = 5;
+  s21_sprintf(buffer, "%.*s", precision, "Hello");
+
+  sprintf(expected, "%.*s", precision, "Hello");
+
+  ck_assert_str_eq(buffer, expected);
+}
+END_TEST
+
+Suite *s21_sprintf_suite(void) {
+  Suite *suite;
+  TCase *core;
+
+  suite = suite_create("\033[42m-=S21_SPRINTF=-\033[0m");
+  core = tcase_create("Core");
+
+  tcase_add_test(core, test_s21_sprintf_basic);
+  tcase_add_test(core, test_s21_sprintf_integer);
+  tcase_add_test(core, test_s21_sprintf_float);
+  tcase_add_test(core, test_s21_sprintf_char);
+  tcase_add_test(core, test_s21_sprintf_wide_char);
+  tcase_add_test(core, test_s21_sprintf_float_default_precision);
+  tcase_add_test(core, test_s21_sprintf_float_zero_precision);
+  tcase_add_test(core, test_s21_sprintf_float_no_integer_part);
+  tcase_add_test(core, test_s21_sprintf_negative_float);
+  tcase_add_test(core, test_s21_sprintf_wide_string_basic);
+  tcase_add_test(core, test_s21_sprintf_wide_string_width);
+  tcase_add_test(core, test_s21_sprintf_wide_string_precision);
+  tcase_add_test(core, test_s21_sprintf_wide_string_minus_flag);
+  tcase_add_test(core, test_s21_sprintf_wide_string_no_padding);
+  tcase_add_test(core, test_s21_sprintf_wide_string_left_padding);
+  tcase_add_test(core, test_s21_sprintf_wide_string_right_padding);
+  tcase_add_test(core, test_s21_sprintf_wide_string_both_padding);
+  tcase_add_test(core, test_s21_sprintf_string_no_left_padding);
+  tcase_add_test(core, test_s21_sprintf_char_no_left_padding);
+  tcase_add_test(core, test_s21_sprintf_char_left_padding);
+  tcase_add_test(core, test_s21_sprintf_char_zero_width);
+  tcase_add_test(core, test_s21_sprintf_wchar_no_left_padding);
+  tcase_add_test(core, test_s21_sprintf_wchar_left_padding);
+  tcase_add_test(core, test_s21_sprintf_wchar_zero_width);
+  tcase_add_test(core, test_s21_sprintf_parse_uint_uint32);
+  tcase_add_test(core, test_s21_sprintf_parse_uint_uint16);
+  tcase_add_test(core, test_s21_sprintf_parse_uint_ulong);
+  tcase_add_test(core, test_s21_sprint_unum_to_string_with_zero);
+  tcase_add_test(core, test_s21_sprintf_with_format_flags);
+  tcase_add_test(core, test_s21_sprintf_with_space_flag);
+  tcase_add_test(core, test_s21_sprintf_with_width_and_padding);
+  tcase_add_test(core, test_s21_sprintf_format_precision);
+  tcase_add_test(core, test_s21_sprintf_format_precision_zero_u_specifier);
+  tcase_add_test(core, test_s21_sprintf_precision_zero_check_int_spec);
+  tcase_add_test(core, test_s21_sprintf_buffer_starts_with_minus);
+  tcase_add_test(core, test_s21_sprintf_j_zero_in_loop);
+  tcase_add_test(core, test_s21_sprintf_h_specifier);
+  tcase_add_test(core, test_s21_sprintf_percent_specifier);
+  tcase_add_test(core, test_s21_sprintf_star_precision_specifier);
+
+  suite_add_tcase(suite, core);
+
+  return suite;
+}
+
+//--------------------------s21_strcat---------------------------------
+START_TEST(test_s21_strcat) {
+  char dest[100] = "Hello, ";
+  const char *src = "world!";
+  s21_strcat(dest, src);
+
+  char expected[100] = "Hello, world!";
+  ck_assert_str_eq(dest, expected);
+}
+END_TEST
+
+Suite *s21_strcat_suite(void) {
+  Suite *suite;
+  TCase *core;
+
+  suite = suite_create("\033[42m-=S21_STRCAT=-\033[0m");
+  core = tcase_create("Core");
+
+  tcase_add_test(core, test_s21_strcat);
+
+  suite_add_tcase(suite, core);
+
+  return suite;
+}
+
+//--------------------------s21_strcpy---------------------------------
+START_TEST(test_s21_strcpy) {
+  char dest[100];
+  const char *src = "Copy this!";
+  s21_strcpy(dest, src);
+
+  char expected[100] = "Copy this!";
+  ck_assert_str_eq(dest, expected);
+}
+END_TEST
+
+Suite *s21_strcpy_suite(void) {
+  Suite *suite;
+  TCase *core;
+
+  suite = suite_create("\033[42m-=S21_STRCPY=-\033[0m");
+  core = tcase_create("Core");
+
+  tcase_add_test(core, test_s21_strcpy);
+
+  suite_add_tcase(suite, core);
+
+  return suite;
+}
+
 int main(void) {
   int failed = 0;
-  Suite *string_tests[] = {s21_memchr_suite(),   s21_strncmp_suite(),
-                           s21_memcmp_suite(),   s21_memcpy_suite(),
-                           s21_memset_suite(),   s21_strchr_suite(),
-                           s21_strcspn_suite(),  s21_strerror_suite(),
-                           s21_strlen_suite(),   s21_strncat_suite(),
-                           s21_insert_suite(),   s21_strncpy_suite(),
-                           s21_strpbrk_suite(),  s21_strrchr_suite(),
-                           s21_strstr_suite(),   s21_strtok_suite(),
-                           s21_to_lower_suite(), s21_to_upper_suite(),
-                           s21_trim_suite(),     NULL};
+  Suite *string_tests[] = {s21_memchr_suite(),
+                           s21_strncmp_suite(),
+                           s21_memcmp_suite(),
+                           s21_memcpy_suite(),
+                           s21_memset_suite(),
+                           s21_strchr_suite(),
+                           s21_strcspn_suite(),
+                           s21_strerror_suite(),
+                           s21_strlen_suite(),
+                           s21_strncat_suite(),
+                           s21_insert_suite(),
+                           s21_strncpy_suite(),
+                           s21_strpbrk_suite(),
+                           s21_strrchr_suite(),
+                           s21_strstr_suite(),
+                           s21_strtok_suite(),
+                           s21_to_lower_suite(),
+                           s21_to_upper_suite(),
+                           s21_trim_suite(),
+                           s21_sprintf_suite(),
+                           s21_strcat_suite(),
+                           s21_strcpy_suite(),
+                           NULL};
 
   for (int i = 0; string_tests[i] != NULL; i++) {
     SRunner *runner;
