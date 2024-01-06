@@ -1,6 +1,7 @@
 # my_string_h_lib
 Репозиторий для самописной копии стандартной библиотеки string.h языка C
 
+![string](https://github.com/ArzimanOff/my_string_h_lib/assets/102418559/dbdd29f9-ceea-4ac9-afd9-c424007d0f12)
 
 
 ### string.h Типы
@@ -45,4 +46,3 @@
 | 2 | void *to_lower(const char *str) | Возвращает копию строки (str), преобразованной в нижний регистр. В случае какой-либо ошибки следует вернуть значение NULL |
 | 3 | void *insert(const char *src, const char *str, size_t start_index) | Возвращает новую строку, в которой указанная строка (str) вставлена в указанную позицию (start_index) в данной строке (src). В случае какой-либо ошибки следует вернуть значение NULL |
 | 4 | void *trim(const char *src, const char *trim_chars) | Возвращает новую строку, в которой удаляются все начальные и конечные вхождения набора заданных символов (trim_chars) из данной строки (src). В случае какой-либо ошибки следует вернуть значение NULL |
-
